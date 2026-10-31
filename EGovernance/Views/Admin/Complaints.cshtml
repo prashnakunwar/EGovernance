@@ -1,0 +1,140 @@
+﻿@model IEnumerable<EGOVERNANCE.Models.Complaint>
+
+@{
+    ViewData["Title"] = "All Complaints";
+    var selectedStatus = ViewBag.SelectedStatus as string;
+}
+
+<div class="page-heading">
+    <h1>All Complaints</h1>
+    <p>Review and manage complaints submitted by citizens.</p>
+</div>
+
+<div class="dashboard-panel">
+
+    <div class="panel-heading">
+        <div>
+            <h2>Complaint Records</h2>
+            <p>All complaints received by the municipality</p>
+        </div>
+
+        <span class="complaint-count">
+            @Model.Count() Complaints
+        </span>
+    </div>
+
+    <div class="complaint-filter">
+        <form asp-controller="Admin"
+              asp-action="Complaints"
+              method="get">
+
+            <label for="status">Filter by status</label>
+
+            <select name="status" id="status" class="form-control"
+                    onchange="this.form.submit()">
+
+                <option value="">All Complaints</option>
+
+                <option value="Pending"
+                        selected="@(selectedStatus == "Pending")">
+                    Pending
+                </option>
+
+                <option value="In Progress"
+                        selected="@(selectedStatus == "In Progress")">
+                    In Progress
+                </option>
+
+                <option value="Resolved"
+                        selected="@(selectedStatus == "Resolved")">
+                    Resolved
+                </option>
+
+                <option value="Rejected"
+                        selected="@(selectedStatus == "Rejected")">
+                    Rejected
+                </option>
+            </select>
+        </form>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="empty-state">
+            <i class="fa-regular fa-folder-open"></i>
+            <h3>No complaints found</h3>
+            <p>There are no complaints matching this selection.</p>
+        </div>
+    }
+    else
+    {
+        <div class="admin-complaints-list">
+
+            @foreach (var complaint in Model)
+            {
+                <div class="admin-complaint-card">
+
+                    <div class="admin-complaint-header">
+                        <div>
+                            <span class="complaint-number">
+                                @complaint.ComplaintNumber
+                            </span>
+
+                            <h3>@complaint.Title</h3>
+                        </div>
+
+                        <span class="status-badge status-@complaint.Status.Replace(" ", "").ToLowerInvariant()">
+                            @complaint.Status
+                        </span>
+                    </div>
+
+                    <div class="admin-complaint-details">
+
+                        <div>
+                            <span>Citizen</span>
+                            <strong>
+                                @(complaint.User?.FullName ?? "Unknown")
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>Category</span>
+                            <strong>@complaint.Category</strong>
+                        </div>
+
+                        <div>
+                            <span>Location</span>
+                            <strong>@complaint.Location</strong>
+                        </div>
+
+                        <div>
+                            <span>Ward</span>
+                            <strong>@complaint.WardNumber</strong>
+                        </div>
+
+                        <div>
+                            <span>Submitted</span>
+                            <strong>
+                                @complaint.CreatedAt.ToLocalTime().ToString("dd MMM yyyy")
+                            </strong>
+                        </div>
+
+                    </div>
+
+                    <div class="admin-complaint-footer">
+                        <a asp-controller="Admin"
+                           asp-action="Details"
+                           asp-route-id="@complaint.Id"
+                           class="view-all-link">
+                            View Details
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+
+                </div>
+            }
+
+        </div>
+    }
+
+</div>

@@ -1,0 +1,133 @@
+﻿@model IEnumerable<EGOVERNANCE.Models.Complaint>
+
+@{
+    ViewData["Title"] = "My Complaints";
+}
+
+<div class="page-heading">
+    <h1>My Complaints</h1>
+    <p>View and monitor all the complaints you have submitted.</p>
+</div>
+
+<div class="dashboard-panel">
+
+    <div class="panel-heading">
+        <div>
+            <h2>Complaint History</h2>
+            <p>All your submitted complaints</p>
+        </div>
+
+        <a asp-controller="Citizen"
+           asp-action="SubmitComplaint"
+           class="welcome-button">
+            <i class="fa-solid fa-plus"></i>
+            New Complaint
+        </a>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="empty-state">
+            <i class="fa-regular fa-folder-open"></i>
+
+            <h3>No complaints found</h3>
+
+            <p>
+                You haven't submitted any complaints yet.
+                Your complaint history will appear here.
+            </p>
+
+            <a asp-controller="Citizen"
+               asp-action="SubmitComplaint"
+               class="welcome-button">
+                Submit Your First Complaint
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="complaint-list">
+
+            @foreach (var complaint in Model)
+            {
+                <div class="complaint-card">
+
+                    <div class="complaint-card-header">
+
+                        <div>
+                            <span class="complaint-number">
+                                @complaint.ComplaintNumber
+                            </span>
+
+                            <h3>@complaint.Title</h3>
+                        </div>
+
+                        <span class="status-badge status-@complaint.Status.Replace(" ", "").ToLowerInvariant()">
+                            @complaint.Status
+                        </span>
+
+                    </div>
+
+                    <div class="complaint-card-details">
+
+                        <div>
+                            <span>Category</span>
+                            <strong>@complaint.Category</strong>
+                        </div>
+
+                        <div>
+                            <span>Location</span>
+                            <strong>@complaint.Location</strong>
+                        </div>
+
+                        <div>
+                            <span>Ward</span>
+                            <strong>@complaint.WardNumber</strong>
+                        </div>
+
+                        <div>
+                            <span>Submitted</span>
+                            <strong>
+                                @complaint.CreatedAt.ToLocalTime().ToString("dd MMM yyyy")
+                            </strong>
+                        </div>
+
+                    </div>
+
+                    <div class="complaint-card-description">
+                        <p>@complaint.Description</p>
+                    </div>
+
+                    @if (!string.IsNullOrWhiteSpace(complaint.AdminRemarks))
+                    {
+                        <div class="admin-remarks">
+                            <strong>Municipality Remarks:</strong>
+                            <p>@complaint.AdminRemarks</p>
+                        </div>
+                    }
+
+                    <div class="complaint-card-footer">
+
+                        <a asp-controller="Citizen"
+                           asp-action="TrackComplaint"
+                           class="view-all-link">
+                            Track Complaint
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+    }
+
+</div>

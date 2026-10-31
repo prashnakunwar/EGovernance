@@ -1,0 +1,210 @@
+﻿@using EGOVERNANCE.Models
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+
+    var recentComplaints =
+        ViewBag.RecentComplaints as IEnumerable<Complaint>
+        ?? Enumerable.Empty<Complaint>();
+
+    int totalComplaints = ViewBag.TotalComplaints ?? 0;
+    int pendingComplaints = ViewBag.PendingComplaints ?? 0;
+    int inProgressComplaints = ViewBag.InProgressComplaints ?? 0;
+    int resolvedComplaints = ViewBag.ResolvedComplaints ?? 0;
+    int rejectedComplaints = ViewBag.RejectedComplaints ?? 0;
+}
+
+<!-- PAGE HEADING -->
+<div class="page-heading">
+    <h1>Admin Dashboard</h1>
+    <p>Overview of citizen complaints and their current status.</p>
+</div>
+
+
+<!-- COMPLAINT STATISTICS -->
+<div class="stats-grid">
+
+    <!-- Total Complaints -->
+    <a asp-controller="Admin"
+       asp-action="Complaints"
+       class="stat-card dashboard-stat-link">
+
+        <div class="stat-icon blue">
+            <i class="fa-solid fa-file-lines"></i>
+        </div>
+
+        <div>
+            <span>Total Complaints</span>
+            <h2>@totalComplaints</h2>
+            <small>View all citizen complaints</small>
+        </div>
+
+    </a>
+
+
+    <!-- Pending -->
+    <a asp-controller="Admin"
+       asp-action="Complaints"
+       asp-route-status="Pending"
+       class="stat-card dashboard-stat-link">
+
+        <div class="stat-icon orange">
+            <i class="fa-solid fa-clock"></i>
+        </div>
+
+        <div>
+            <span>Pending</span>
+            <h2>@pendingComplaints</h2>
+            <small>Awaiting review</small>
+        </div>
+
+    </a>
+
+
+    <!-- In Progress -->
+    <a asp-controller="Admin"
+       asp-action="Complaints"
+       asp-route-status="In Progress"
+       class="stat-card dashboard-stat-link">
+
+        <div class="stat-icon purple">
+            <i class="fa-solid fa-spinner"></i>
+        </div>
+
+        <div>
+            <span>In Progress</span>
+            <h2>@inProgressComplaints</h2>
+            <small>Currently being handled</small>
+        </div>
+
+    </a>
+
+
+    <!-- Resolved -->
+    <a asp-controller="Admin"
+       asp-action="Complaints"
+       asp-route-status="Resolved"
+       class="stat-card dashboard-stat-link">
+
+        <div class="stat-icon green">
+            <i class="fa-solid fa-circle-check"></i>
+        </div>
+
+        <div>
+            <span>Resolved</span>
+            <h2>@resolvedComplaints</h2>
+            <small>Successfully completed</small>
+        </div>
+
+    </a>
+
+
+    <!-- Rejected -->
+    <a asp-controller="Admin"
+       asp-action="Complaints"
+       asp-route-status="Rejected"
+       class="stat-card dashboard-stat-link">
+
+        <div class="stat-icon orange">
+            <i class="fa-solid fa-circle-xmark"></i>
+        </div>
+
+        <div>
+            <span>Rejected</span>
+            <h2>@rejectedComplaints</h2>
+            <small>Complaints not approved</small>
+        </div>
+
+    </a>
+
+</div>
+
+
+<!-- RECENT COMPLAINTS -->
+<div class="dashboard-panel recent-complaints-panel">
+
+    <div class="panel-heading">
+
+        <div>
+            <h2>Recent Complaints</h2>
+            <p>Latest complaints submitted by citizens</p>
+        </div>
+
+        <a asp-controller="Admin"
+           asp-action="Complaints"
+           class="view-all-link">
+
+            View all
+            <i class="fa-solid fa-arrow-right"></i>
+
+        </a>
+
+    </div>
+
+
+    @if (!recentComplaints.Any())
+    {
+        <div class="empty-state">
+
+            <i class="fa-regular fa-folder-open"></i>
+
+            <h3>No complaints yet</h3>
+
+            <p>
+                Citizen complaints will appear here when they are submitted.
+            </p>
+
+        </div>
+    }
+    else
+    {
+        <div class="recent-complaints-list">
+
+            @foreach (var complaint in recentComplaints)
+            {
+                var statusClass = complaint.Status
+                    .Replace(" ", "")
+                    .ToLowerInvariant();
+
+                <div class="recent-complaint-item">
+
+                    <div class="recent-complaint-info">
+
+                        <h3>@complaint.Title</h3>
+
+                        <span class="complaint-number">
+                            @complaint.ComplaintNumber
+                        </span>
+
+                        <p>
+                            @complaint.Category
+
+                            <span class="complaint-separator">·</span>
+
+                            @complaint.CreatedAt.ToLocalTime()
+                            .ToString("dd MMM yyyy")
+                        </p>
+
+                    </div>
+
+
+                    <div class="recent-complaint-status">
+
+                        <a asp-controller="Admin"
+                           asp-action="Complaints"
+                           asp-route-status="@complaint.Status"
+                           class="status-badge status-@statusClass">
+
+                            @complaint.Status
+
+                        </a>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+    }
+
+</div>

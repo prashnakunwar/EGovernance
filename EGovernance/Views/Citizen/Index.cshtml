@@ -1,0 +1,220 @@
+﻿@using EGOVERNANCE.Models
+
+@{
+    ViewData["Title"] = "Dashboard";
+
+    var recentComplaints =
+        ViewBag.RecentComplaints as IEnumerable<Complaint>
+        ?? Enumerable.Empty<Complaint>();
+}
+
+<!-- Welcome Section -->
+<div class="dashboard-welcome">
+
+    <div class="welcome-content">
+
+        <span class="welcome-label">CITIZEN PORTAL</span>
+
+        <h1>Welcome back, @ViewBag.FullName!</h1>
+
+        <p>
+            Your voice matters. Submit complaints, track their progress,
+            and stay connected with your municipality.
+        </p>
+
+        <a asp-controller="Citizen"
+           asp-action="SubmitComplaint"
+           class="welcome-button">
+
+            <i class="fa-solid fa-plus"></i>
+            Submit a Complaint
+
+        </a>
+
+    </div>
+
+    <div class="welcome-icon">
+        <i class="fa-solid fa-landmark"></i>
+    </div>
+
+</div>
+
+
+<!-- Complaint Statistics -->
+<div class="section-heading">
+
+    <h2>My Complaint Overview</h2>
+
+    <p>Your complaint statistics will appear here.</p>
+
+</div>
+
+
+<div class="stats-grid">
+
+    <!-- Total Complaints -->
+    <div class="stat-card">
+
+        <div class="stat-icon blue">
+            <i class="fa-solid fa-file-lines"></i>
+        </div>
+
+        <div>
+            <span>Total Complaints</span>
+
+            <h2>@ViewBag.TotalComplaints</h2>
+
+            <small>Complaints submitted by you</small>
+        </div>
+
+    </div>
+
+
+    <!-- Pending Complaints -->
+    <div class="stat-card">
+
+        <div class="stat-icon orange">
+            <i class="fa-solid fa-clock"></i>
+        </div>
+
+        <div>
+            <span>Pending</span>
+
+            <h2>@ViewBag.PendingComplaints</h2>
+
+            <small>Awaiting review</small>
+        </div>
+
+    </div>
+
+
+    <!-- In Progress Complaints -->
+    <div class="stat-card">
+
+        <div class="stat-icon purple">
+            <i class="fa-solid fa-spinner"></i>
+        </div>
+
+        <div>
+            <span>In Progress</span>
+
+            <h2>@ViewBag.InProgressComplaints</h2>
+
+            <small>Currently being handled</small>
+        </div>
+
+    </div>
+
+
+    <!-- Resolved Complaints -->
+    <div class="stat-card">
+
+        <div class="stat-icon green">
+            <i class="fa-solid fa-circle-check"></i>
+        </div>
+
+        <div>
+            <span>Resolved</span>
+
+            <h2>@ViewBag.ResolvedComplaints</h2>
+
+            <small>Successfully completed</small>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Recent Complaints -->
+<div class="dashboard-panel">
+
+    <div class="panel-heading">
+
+        <div>
+            <h2>Recent Complaints</h2>
+
+            <p>Your latest submitted complaints</p>
+        </div>
+
+        <a asp-controller="Citizen"
+           asp-action="MyComplaints"
+           class="view-all-link">
+            View all
+        </a>
+
+    </div>
+
+
+    @if (!recentComplaints.Any())
+    {
+        <!-- Empty State: No complaints submitted -->
+
+        <div class="empty-state">
+
+            <i class="fa-regular fa-folder-open"></i>
+
+            <h3>No complaints submitted yet</h3>
+
+            <p>
+                You haven't submitted any complaints.
+                Once you submit one, it will appear here.
+            </p>
+
+            <a asp-controller="Citizen"
+               asp-action="SubmitComplaint"
+               class="welcome-button">
+
+                <i class="fa-solid fa-plus"></i>
+                Submit Your First Complaint
+
+            </a>
+
+        </div>
+    }
+    else
+    {
+        <!-- Display actual complaints from SQL Server -->
+
+        <div class="recent-complaints-list">
+
+            @foreach (var complaint in recentComplaints)
+            {
+                <div class="recent-complaint-item">
+
+                    <div class="recent-complaint-info">
+
+                        <h3>@complaint.Title</h3>
+
+                        <span class="complaint-number">
+                            @complaint.ComplaintNumber
+                        </span>
+
+                        <p>
+                            <i class="fa-solid fa-layer-group"></i>
+                            @complaint.Category
+
+                            <span class="complaint-separator">•</span>
+
+                            <i class="fa-regular fa-calendar"></i>
+                            @complaint.CreatedAt.ToLocalTime().ToString("dd MMM yyyy")
+                        </p>
+
+                    </div>
+
+
+                    <div class="recent-complaint-status">
+
+                        <span class="status-badge status-@complaint.Status.Replace(" ", "").ToLowerInvariant()">
+                            @complaint.Status
+                        </span>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+    }
+
+</div>

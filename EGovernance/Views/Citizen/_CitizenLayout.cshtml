@@ -1,0 +1,233 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"] - E-Governance Citizen Portal</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+    <link rel="stylesheet"
+          href="~/css/citizen.css"
+          asp-append-version="true" />
+</head>
+
+<body>
+
+    <div class="citizen-wrapper">
+
+        <!-- SIDEBAR -->
+        <aside class="citizen-sidebar" id="citizenSidebar">
+
+            <div class="sidebar-brand">
+
+                <div class="brand-icon">
+                    <i class="fa-solid fa-landmark"></i>
+                </div>
+
+                <div class="brand-text">
+                    <h2>E-GOVERNANCE</h2>
+                    <span>CITIZEN PORTAL</span>
+                </div>
+
+            </div>
+
+            <div class="sidebar-section-label">MAIN MENU</div>
+
+            <nav class="sidebar-navigation">
+
+                <!-- Dashboard -->
+                <a asp-controller="Citizen"
+                   asp-action="Index"
+                   class="sidebar-link @(ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "active" : "")">
+
+                    <i class="fa-solid fa-house"></i>
+                    <span>Dashboard</span>
+
+                </a>
+
+                <!-- Submit Complaint -->
+                <a asp-controller="Citizen"
+                   asp-action="SubmitComplaint"
+                   class="sidebar-link @(ViewContext.RouteData.Values["Action"]?.ToString() == "SubmitComplaint" ? "active" : "")">
+
+                    <i class="fa-solid fa-file-circle-plus"></i>
+                    <span>Submit Complaint</span>
+
+                </a>
+
+                <!-- My Complaints -->
+                <a asp-controller="Citizen"
+                   asp-action="MyComplaints"
+                   class="sidebar-link @(ViewContext.RouteData.Values["Action"]?.ToString() == "MyComplaints" ? "active" : "")">
+
+                    <i class="fa-solid fa-folder-open"></i>
+                    <span>My Complaints</span>
+
+                </a>
+
+                <!-- Track Complaint -->
+                <a asp-controller="Citizen"
+                   asp-action="TrackComplaint"
+                   class="sidebar-link @(ViewContext.RouteData.Values["Action"]?.ToString() == "TrackComplaint" || ViewContext.RouteData.Values["Action"]?.ToString() == "TrackComplaintResult" ? "active" : "")">
+
+                    <i class="fa-solid fa-magnifying-glass-location"></i>
+                    <span>Track Complaint</span>
+
+                </a>
+
+            </nav>
+
+
+            <!-- BOTTOM MENU -->
+            <div class="sidebar-bottom">
+
+                <!-- Logout -->
+                <form asp-controller="Account"
+                      asp-action="Logout"
+                      method="post">
+
+                    @Html.AntiForgeryToken()
+
+                    <button type="submit" class="sidebar-link logout-link">
+
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Logout</span>
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </aside>
+
+
+        <!-- MAIN CONTENT -->
+        <main class="citizen-main">
+
+
+            <!-- TOP HEADER -->
+            <header class="citizen-header">
+
+                <div class="header-left">
+
+                    <button type="button"
+                            class="mobile-menu-btn"
+                            id="menuToggle">
+
+                        <i class="fa-solid fa-bars"></i>
+
+                    </button>
+
+                    <div>
+                        <h3>@ViewData["Title"]</h3>
+                        <p>Citizen Portal / @ViewData["Title"]</p>
+                    </div>
+
+                </div>
+
+
+                <div class="header-right">
+
+                    <button type="button"
+                            class="notification-btn"
+                            title="Notifications">
+
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="notification-dot"></span>
+
+                    </button>
+
+
+                    <div class="header-profile">
+
+                        <div class="profile-avatar">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+
+                        <div class="profile-details">
+
+                            <strong>@User.Identity?.Name</strong>
+                            <span>Citizen</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <!-- PAGE CONTENT -->
+            <section class="citizen-content">
+
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="alert alert-success">
+                        @TempData["SuccessMessage"]
+                    </div>
+                }
+
+                @RenderBody()
+
+            </section>
+
+
+            <!-- FOOTER -->
+            <footer class="citizen-footer">
+
+                <p>
+                    © @DateTime.Now.Year E-Governance Portal. All rights reserved.
+                </p>
+
+                <span>Serving Citizens, Building Better Communities.</span>
+
+            </footer>
+
+        </main>
+
+    </div>
+
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+
+    <!-- MOBILE SIDEBAR SCRIPT -->
+    <script>
+
+            const menuToggle = document.getElementById("menuToggle");
+            const sidebar = document.getElementById("citizenSidebar");
+            const overlay = document.getElementById("sidebarOverlay");
+
+            menuToggle?.addEventListener("click", function() {
+
+                sidebar.classList.toggle("sidebar-open");
+                overlay.classList.toggle("overlay-visible");
+
+            });
+
+            overlay?.addEventListener("click", function() {
+
+                sidebar.classList.remove("sidebar-open");
+                overlay.classList.remove("overlay-visible");
+
+            });
+
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

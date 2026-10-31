@@ -1,0 +1,160 @@
+﻿@model EGOVERNANCE.Models.Complaint
+
+@{
+    ViewData["Title"] = "Complaint Details";
+}
+
+<div class="page-heading">
+    <h1>Complaint Details</h1>
+    <p>Review the citizen's complaint and update its progress.</p>
+</div>
+
+<div class="dashboard-panel">
+
+    <div class="panel-heading">
+        <div>
+            <h2>@Model.Title</h2>
+            <p>Complaint ID: @Model.ComplaintNumber</p>
+        </div>
+
+        <span class="status-badge status-@Model.Status.Replace(" ", "").ToLowerInvariant()">
+            @Model.Status
+        </span>
+    </div>
+
+    <div class="admin-complaint-card">
+
+        <h3>Complaint Information</h3>
+
+        <div class="admin-complaint-details">
+
+            <div>
+                <span>Category</span>
+                <strong>@Model.Category</strong>
+            </div>
+
+            <div>
+                <span>Location</span>
+                <strong>@Model.Location</strong>
+            </div>
+
+            <div>
+                <span>Ward Number</span>
+                <strong>@(Model.WardNumber ?? "Not provided")</strong>
+            </div>
+
+            <div>
+                <span>Submitted On</span>
+                <strong>@Model.CreatedAt.ToLocalTime().ToString("dd MMM yyyy, hh:mm tt")</strong>
+            </div>
+
+        </div>
+
+        <hr />
+
+        <h3>Description</h3>
+        <p>@Model.Description</p>
+
+        @if (!string.IsNullOrEmpty(Model.ImagePath))
+        {
+            <h3>Attached Image</h3>
+
+            <img src="@Url.Content(Model.ImagePath)"
+                 alt="Complaint attachment"
+                 style="max-width:100%; max-height:400px; border-radius:10px; margin-top:10px;" />
+        }
+
+    </div>
+
+    <div class="admin-complaint-card">
+
+        <h3>Citizen Information</h3>
+
+        <div class="admin-complaint-details">
+
+            <div>
+                <span>Full Name</span>
+                <strong>@(Model.User?.FullName ?? "Unknown")</strong>
+            </div>
+
+            <div>
+                <span>Email</span>
+                <strong>@(Model.User?.Email ?? "Not available")</strong>
+            </div>
+
+            <div>
+                <span>Phone Number</span>
+                <strong>@(Model.User?.PhoneNumber ?? "Not available")</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="admin-complaint-card">
+
+        <h3>Manage Complaint</h3>
+
+        <form asp-controller="Admin"
+              asp-action="UpdateComplaint"
+              method="post">
+
+            <input type="hidden" name="id" value="@Model.Id" />
+
+            <div class="form-group" style="margin-bottom:20px;">
+
+                <label for="status">Update Status</label>
+
+                <select id="status"
+                        name="status"
+                        class="form-control"
+                        required>
+
+                    <option value="Pending" selected="@(Model.Status == "Pending")">
+                        Pending
+                    </option>
+
+                    <option value="In Progress" selected="@(Model.Status == "In Progress")">
+                        In Progress
+                    </option>
+
+                    <option value="Resolved" selected="@(Model.Status == "Resolved")">
+                        Resolved
+                    </option>
+
+                    <option value="Rejected" selected="@(Model.Status == "Rejected")">
+                        Rejected
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="form-group" style="margin-bottom:20px;">
+
+                <label for="adminRemarks">Admin Remarks</label>
+
+                <textarea id="adminRemarks"
+                          name="adminRemarks"
+                          class="form-control"
+                          rows="4"
+                          placeholder="Write an update or explanation for the citizen...">@(Model.AdminRemarks ?? "")</textarea>
+
+            </div>
+
+            <button type="submit" class="btn-submit">
+                <i class="fa-solid fa-floppy-disk"></i>
+                Save Changes
+            </button>
+
+            <a asp-controller="Admin"
+               asp-action="Complaints"
+               class="btn-cancel">
+                Back to Complaints
+            </a>
+
+        </form>
+
+    </div>
+
+</div>

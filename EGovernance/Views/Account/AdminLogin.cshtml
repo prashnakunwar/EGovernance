@@ -1,0 +1,55 @@
+﻿@model EGOVERNANCE.ViewModels.AdminLoginViewModel
+
+@{
+    ViewData["Title"] = "Admin Login";
+}
+
+<section class="auth-section">
+    <div class="auth-card">
+
+        <div class="auth-heading">
+            <div class="auth-icon admin-icon">A</div>
+            <h2>Administrator Login</h2>
+            <p>Authorized government personnel only.</p>
+        </div>
+
+        <form asp-action="AdminLogin" method="post">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" placeholder="Administrator email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" class="form-control" placeholder="Enter your password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="remember-row">
+                <label>
+                    <input asp-for="RememberMe" />
+                    Remember me
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">
+                Admin Sign In
+            </button>
+
+        </form>
+
+        <div class="auth-switch">
+            Citizen?
+            <a asp-action="CitizenLogin">Citizen Login</a>
+        </div>
+
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,34 @@
+﻿
+@model EGOVERNANCE.Models.ViewModels.LoginViewModel
+
+<form asp-controller="Account" asp-action="Login" method="post">
+
+    @Html.AntiForgeryToken()
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="login-input-group">
+        <label asp-for="Email">Email Address</label>
+        <input asp-for="Email" placeholder="Enter your email" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="login-input-group">
+        <label asp-for="Password"></label>
+        <input asp-for="Password" type="password"
+               placeholder="Enter your password" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <div class="login-options">
+        <label class="remember-option">
+            <input asp-for="RememberMe" />
+            Remember me
+        </label>
+    </div>
+
+    <button type="submit" class="login-submit-btn">
+        Sign In
+    </button>
+
+</form>

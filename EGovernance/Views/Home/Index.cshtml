@@ -1,0 +1,182 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center gy-5">
+
+            <div class="col-lg-7">
+                <span class="hero-label">YOUR DIGITAL GOVERNMENT PORTAL</span>
+
+                <h1>
+                    Your Voice Matters.
+                    <span>Your City Matters.</span>
+                </h1>
+
+                <p class="hero-description">
+                    Report local issues, track your complaints, and stay connected
+                    with your municipality through one simple digital platform.
+                </p>
+
+                <div class="hero-buttons">
+                    <a asp-controller="Account" asp-action="Register"
+                       class="btn btn-primary btn-lg">
+                        Submit a Complaint
+                    </a>
+
+                    <a asp-controller="Account" asp-action="CitizenLogin"
+                       class="btn btn-outline-primary btn-lg">
+                        Track Your Complaint
+                    </a>
+                </div>
+
+                <div class="hero-note">
+                    Accessible. Transparent. Citizen-focused.
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="hero-card">
+                    <div class="hero-card-icon">✓</div>
+                    <h3>One Platform. Better Communities.</h3>
+                    <p>
+                        Submit complaints, receive updates, and help improve
+                        your local community.
+                    </p>
+
+                    <div class="hero-card-stat">
+                        <strong>01</strong>
+                        <span>Submit your complaint</span>
+                    </div>
+
+                    <div class="hero-card-stat">
+                        <strong>02</strong>
+                        <span>Government reviews it</span>
+                    </div>
+
+                    <div class="hero-card-stat">
+                        <strong>03</strong>
+                        <span>Track the resolution</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="section-padding" id="services">
+    <div class="container">
+
+        <div class="section-heading">
+            <span>OUR SERVICES</span>
+            <h2>What Can We Help You With?</h2>
+            <p>Report common municipal issues through our digital platform.</p>
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <div class="service-icon">♻</div>
+                    <h4>Waste Management</h4>
+                    <p>Report garbage collection and waste disposal problems.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <div class="service-icon">道路</div>
+                    <h4>Road Maintenance</h4>
+                    <p>Report damaged roads, potholes, and unsafe streets.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <div class="service-icon">💧</div>
+                    <h4>Drinking Water</h4>
+                    <p>Report water supply and pipeline-related problems.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <div class="service-icon">💡</div>
+                    <h4>Streetlight Maintenance</h4>
+                    <p>Report broken or non-functioning streetlights.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <div class="service-icon">🌧</div>
+                    <h4>Drainage Management</h4>
+                    <p>Report blocked drains and drainage problems.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <div class="service-icon">🏙</div>
+                    <h4>Public Sanitation</h4>
+                    <p>Report sanitation and public cleanliness concerns.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="section-padding process-section" id="how-it-works">
+    <div class="container">
+
+        <div class="section-heading">
+            <span>SIMPLE PROCESS</span>
+            <h2>How It Works</h2>
+            <p>Three simple steps to make your voice heard.</p>
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-md-4">
+                <div class="process-card">
+                    <div class="process-number">01</div>
+                    <h4>Create an Account</h4>
+                    <p>Register as a citizen to access the complaint portal.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="process-card">
+                    <div class="process-number">02</div>
+                    <h4>Submit a Complaint</h4>
+                    <p>Describe the issue and provide its location.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="process-card">
+                    <div class="process-number">03</div>
+                    <h4>Track Progress</h4>
+                    <p>Follow updates until the complaint is resolved.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<section class="final-cta">
+    <div class="container text-center">
+        <h2>Be Part of a Better Community</h2>
+        <p>Register today and help your municipality respond to local issues.</p>
+
+        <a asp-controller="Account" asp-action="Register"
+           class="btn btn-light btn-lg">
+            Create Citizen Account
+        </a>
+    </div>
+</section>

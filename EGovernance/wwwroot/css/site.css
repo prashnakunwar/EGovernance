@@ -1,0 +1,482 @@
+:root {
+    --navy: #173b67;
+    --navy-dark: #102c4e;
+    --teal: #168c83;
+    --light-blue: #f2f7fc;
+    --text: #243449;
+    --muted: #718096;
+    --white: #ffffff;
+    --border: #e2e8f0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding-top: 76px;
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+    background: var(--white);
+}
+
+a {
+    text-decoration: none;
+}
+
+.navbar {
+    min-height: 76px;
+    padding: 12px 0;
+}
+
+.navbar-brand {
+    color: var(--navy) !important;
+    font-size: 21px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.brand-icon {
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--navy);
+    color: white;
+    border-radius: 9px;
+}
+
+.navbar-nav {
+    gap: 18px;
+}
+
+.nav-link {
+    color: #46566b !important;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+    .nav-link:hover {
+        color: var(--teal) !important;
+    }
+
+.navbar-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    border-radius: 8px;
+    padding: 11px 20px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.btn-primary {
+    background: var(--navy);
+    border-color: var(--navy);
+}
+
+    .btn-primary:hover {
+        background: var(--navy-dark);
+        border-color: var(--navy-dark);
+    }
+
+.btn-outline-primary {
+    color: var(--navy);
+    border-color: var(--navy);
+}
+
+    .btn-outline-primary:hover {
+        background: var(--navy);
+        border-color: var(--navy);
+    }
+
+.hero-section {
+    background: linear-gradient(120deg, #f2f7fc, #e8f2f8);
+    padding: 100px 0;
+}
+
+.hero-label,
+.section-heading span,
+.notice-placeholder span {
+    color: var(--teal);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.hero-section h1 {
+    color: var(--navy-dark);
+    font-size: clamp(38px, 5vw, 60px);
+    line-height: 1.15;
+    font-weight: 800;
+    margin: 22px 0;
+}
+
+    .hero-section h1 span {
+        display: block;
+        color: var(--teal);
+    }
+
+.hero-description {
+    max-width: 570px;
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--muted);
+}
+
+.hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.hero-note {
+    margin-top: 25px;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.hero-card {
+    background: white;
+    padding: 35px;
+    border-radius: 18px;
+    box-shadow: 0 15px 45px rgba(23, 59, 103, .10);
+}
+
+.hero-card-icon,
+.auth-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e5f5f2;
+    color: var(--teal);
+    font-size: 22px;
+    font-weight: 800;
+    border-radius: 12px;
+}
+
+.hero-card h3 {
+    color: var(--navy);
+    font-size: 23px;
+    font-weight: 700;
+    margin: 20px 0 10px;
+}
+
+.hero-card p,
+.service-card p,
+.process-card p {
+    color: var(--muted);
+    line-height: 1.7;
+    font-size: 14px;
+}
+
+.hero-card-stat {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 0;
+    border-top: 1px solid var(--border);
+}
+
+    .hero-card-stat strong {
+        color: var(--teal);
+        font-size: 18px;
+    }
+
+    .hero-card-stat span {
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+.section-padding {
+    padding: 85px 0;
+}
+
+.section-heading {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+    .section-heading h2,
+    .notice-placeholder h2 {
+        color: var(--navy-dark);
+        font-size: 32px;
+        font-weight: 800;
+        margin: 12px 0;
+    }
+
+    .section-heading p,
+    .notice-placeholder p {
+        color: var(--muted);
+    }
+
+.service-card {
+    height: 100%;
+    padding: 28px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    transition: .2s ease;
+}
+
+    .service-card:hover {
+        transform: translateY(-5px);
+        border-color: #b5d8d5;
+        box-shadow: 0 12px 30px rgba(23, 59, 103, .07);
+    }
+
+.service-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--light-blue);
+    border-radius: 12px;
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+.service-card h4,
+.process-card h4 {
+    color: var(--navy);
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.process-section {
+    background: var(--light-blue);
+}
+
+.process-card {
+    height: 100%;
+    background: white;
+    border-radius: 14px;
+    padding: 30px;
+}
+
+.process-number {
+    color: var(--teal);
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.notice-placeholder {
+    text-align: center;
+    padding: 45px 20px;
+    background: var(--light-blue);
+    border-radius: 16px;
+}
+
+.final-cta {
+    padding: 70px 0;
+    background: var(--navy);
+    color: white;
+}
+
+    .final-cta h2 {
+        font-size: 32px;
+        font-weight: 800;
+    }
+
+    .final-cta p {
+        color: #d4dfeb;
+        margin: 15px 0 25px;
+    }
+
+.auth-section {
+    min-height: calc(100vh - 76px);
+    background: var(--light-blue);
+    padding: 65px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 460px;
+    background: white;
+    padding: 38px;
+    border-radius: 16px;
+    box-shadow: 0 12px 40px rgba(23, 59, 103, .09);
+}
+
+.register-card {
+    max-width: 560px;
+}
+
+.auth-heading {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.auth-icon {
+    margin: 0 auto 15px;
+    justify-content: center;
+}
+
+.admin-icon {
+    background: #eaf0fa;
+    color: var(--navy);
+}
+
+.auth-heading h2 {
+    color: var(--navy-dark);
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.auth-heading p {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.form-group {
+    margin-bottom: 19px;
+}
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+.form-control {
+    min-height: 46px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 11px 13px;
+    font-size: 14px;
+}
+
+    .form-control:focus {
+        border-color: var(--teal);
+        box-shadow: 0 0 0 3px rgba(22, 140, 131, .10);
+    }
+
+.remember-row {
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+    .remember-row input {
+        margin-right: 6px;
+    }
+
+.auth-bottom,
+.auth-switch {
+    text-align: center;
+    margin-top: 22px;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+    .auth-bottom a,
+    .auth-switch a {
+        color: var(--teal);
+        font-weight: 700;
+    }
+
+.footer {
+    background: var(--navy-dark);
+    color: white;
+    padding: 55px 0 20px;
+}
+
+    .footer h4,
+    .footer h5 {
+        font-weight: 700;
+        margin-bottom: 18px;
+    }
+
+    .footer p,
+    .footer a {
+        color: #c4d0df;
+        font-size: 13px;
+        line-height: 1.8;
+    }
+
+    .footer a {
+        display: block;
+        margin-bottom: 8px;
+    }
+
+        .footer a:hover {
+            color: white;
+        }
+
+    .footer hr {
+        border-color: #52657d;
+        margin-top: 35px;
+    }
+
+.footer-bottom {
+    text-align: center;
+    margin: 0;
+}
+
+@media (max-width: 991px) {
+    .navbar-actions {
+        margin-top: 15px;
+        flex-wrap: wrap;
+    }
+
+    .navbar-nav {
+        gap: 5px;
+        margin-top: 15px;
+    }
+
+    .hero-section {
+        padding: 70px 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-section {
+        padding: 55px 0;
+    }
+
+        .hero-section h1 {
+            font-size: 38px;
+        }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+        .hero-buttons .btn {
+            width: 100%;
+        }
+
+    .section-padding {
+        padding: 60px 0;
+    }
+
+    .section-heading h2 {
+        font-size: 26px;
+    }
+
+    .auth-card {
+        padding: 26px 20px;
+    }
+
+    .navbar-actions .btn {
+        width: 100%;
+    }
+}

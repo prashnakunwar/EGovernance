@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Track Complaint";
+}
+
+<div class="page-heading">
+    <h1>Track Your Complaint</h1>
+    <p>Enter your complaint reference number to check its current status.</p>
+</div>
+
+<div class="complaint-form-container tracking-form">
+
+    <div class="tracking-form-icon">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </div>
+
+    <h2>Find Your Complaint</h2>
+
+    <p>Enter the complaint number you received after submitting your complaint.</p>
+
+    <form asp-controller="Citizen"
+          asp-action="TrackComplaint"
+          method="post">
+
+        @Html.AntiForgeryToken()
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group">
+            <label for="complaintNumber">Complaint Reference Number</label>
+
+            <input type="text"
+                   id="complaintNumber"
+                   name="complaintNumber"
+                   class="form-control"
+                   placeholder="Example: CMP-20261030-ABC123"
+                   required />
+        </div>
+
+        <button type="submit" class="btn-submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            Track Complaint
+        </button>
+
+    </form>
+
+</div>
